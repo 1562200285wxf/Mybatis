@@ -3,6 +3,7 @@ package com.dao;
 import com.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,13 +17,6 @@ public interface UserMapper {
 
     public List<User> getUserList();
 
-    //仅仅传入参数是为了防止出现sql注入
-    public List<User> getUserListLike(String value);
-
-    public User getUser(int id);
-
-    public int addUser(User user);
-
-
+    public List<User> getUserListLimit(HashMap<String,Integer> map);
 
 }

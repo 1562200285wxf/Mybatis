@@ -5,6 +5,12 @@
 
 <mapper namespace="com.dao.UserMapper">
 
+    <resultMap id="usermap" type="user">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="pwd" property="pwd"></result>
+    </resultMap>
+
     <select id="getUserList" resultType="user">
     select * from user
     </select>
