@@ -6,14 +6,15 @@
 <mapper namespace="com.dao.StudentMapper">
 
     <select id="getStudentList1" resultMap="StudentTeacher1">
-        select  s.id as studentId , s.name as studentName , t.name as teacherName
+        select  s.id as studentId , s.name as studentName , t.name as teacherName,t.id as tId
         from student as s,teacher as t
         where s.tid = t.id
     </select>
     <resultMap id="StudentTeacher1" type="Student">
-        <result property="id" column="studentId"></result>
+        <id property="id" column="studentId"></id>
         <result property="name" column="studentName"></result>
         <association property="teacher" javaType="Teacher">
+            <id property="id" column="tId"></id>
             <result property="name" column="teacherName"></result>
         </association>
     </resultMap>
@@ -30,7 +31,14 @@
     </resultMap>
 
     <select id="getTeacher" resultType="Teacher">
-        select * from teacher where id=#{id}
+        select * from teacher where id=#{tid}
     </select>
 
+
+    <insert id="addUserList" parameterType="java.util.ArrayList">
+        insert into user(name,pwd) values
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{item.name},#{item.pwd})
+        </foreach>
+    </insert>
 </mapper>

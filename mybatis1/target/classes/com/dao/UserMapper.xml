@@ -19,12 +19,23 @@
     select * from user where name like "%"#{value}"%"
     </select>
 
-    <select id="getUser" resultType="user">
-        select * from user where id = #{id}
+    <select id="getUser" resultMap="usermap">
+        select * from user where id = #{Pid}
+    </select>
+
+    <select id="getUserByTwoTags" resultMap="usermap">
+        select * from user where id = #{id} and name = #{Pname}
     </select>
 
     <insert id="addUser" parameterType="user">
         insert into user value (#{pwd},#{name},#{id});
+    </insert>
+
+    <insert id="addUserList" parameterType="java.util.ArrayList">
+        insert into user(name,pwd) values
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{item.name},#{item.pwd})
+        </foreach>
     </insert>
 
 </mapper>

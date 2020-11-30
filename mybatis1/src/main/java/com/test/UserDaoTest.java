@@ -6,6 +6,7 @@ import com.pojo.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class UserDaoTest {
     }
 
     @Test
-    public void  TestUser(){
+    public void  TestGetUser(){
         SqlSession sqlSession  = MybatisUtil.getSqlSession();
         //映射接口用来绑定映射语句，实例在方法中获取。
         UserMapper userdao =  sqlSession.getMapper(UserMapper.class);
@@ -37,6 +38,14 @@ public class UserDaoTest {
         sqlSession.close();
     }
 
+    @Test
+    public void TestGetUserByTwoTags(){
+        SqlSession sqlSession  = MybatisUtil.getSqlSession();
+        //映射接口用来绑定映射语句，实例在方法中获取。
+        UserMapper userdao =  sqlSession.getMapper(UserMapper.class);
+        User user = userdao.getUserByTwoTags(1,"王孝峰");
+        System.out.println(user.toString());
+    }
     //mybatis的插入成功接口返回值是成功的行数
     //增删改需要提交事务
     @Test
@@ -64,5 +73,30 @@ public class UserDaoTest {
             System.out.println(user.toString());
         }
         sqlSession.close();
+    }
+
+    @Test
+    public void TestAddUserList(){
+        SqlSession sqlSession  = MybatisUtil.getSqlSession();
+        //映射接口用来绑定映射语句，实例在方法中获取。
+        UserMapper userdao =  sqlSession.getMapper(UserMapper.class);
+        User userA = new User();
+        userA.setPwd("123456");
+        userA.setName("userA");
+        User userB = new User();
+        userB.setPwd("123456789");
+        userB.setName("userB");
+        List<User> list = new ArrayList<>();
+        list.add(userB);
+        list.add(userA);
+        int flag;
+        flag = userdao.addUserList(list);
+        System.out.println(flag);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    public void  test111(){
+
     }
 }

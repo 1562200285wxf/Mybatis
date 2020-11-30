@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beijing.mapper.CustomMatterBaseMapper">
+
+    <resultMap id="custom" type="CustomMatterBase">
+        <result column="rowguid" property="rowguid"></result>
+        <result column="CD_BATCH" property="cdBatch"></result>
+    </resultMap>
+
+    <select id="getAllCustomMatterBase" resultMap="custom">
+     select rowguid,CD_BATCH from custom_matter_base WHERE matter_status =1
+    </select>
+
+    <select id="getAllCustomMatterBaseRowguid" resultMap="custom">
+     select rowguid from custom_matter_base WHERE matter_status =1
+    </select>
+
+</mapper>

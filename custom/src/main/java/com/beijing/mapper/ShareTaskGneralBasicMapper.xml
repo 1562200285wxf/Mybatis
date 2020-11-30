@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beijing.mapper.ShareTaskGneralBasicMapper">
+
+    <resultMap id="basic" type="ShareTaskGneralBasic">
+        <result column="rowguid" property="rowguid"></result>
+        <result column="taskName" property="task_name"></result>
+        <result column="deptName" property="dept_name"></result>
+        <result column="cdBatch" property="CD_BATCH"></result>
+
+    </resultMap>
+
+    <select id="getGeneralBasicByRowguidMaxCdbatch" resultMap="basic">
+      select rowguid,task_name,dept_name,CD_BATCH
+       from share_task_general_basic
+       where rowguid = #{rowguid}
+       order by CD_BATCH desc
+       limit 1
+    </select>
+
+
+
+</mapper>

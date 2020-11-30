@@ -5,10 +5,14 @@ import com.dao.StudentMapper;
 import com.dao.TeacherMapper;
 import com.dao.UserMapper;
 import com.mybatis.MybatisUtil;
-import com.pojo.*;
+import com.pojo.Blog;
+import com.pojo.Student;
+import com.pojo.Teacher1;
+import com.pojo.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -130,4 +134,24 @@ public class UserDaoTest {
         session.commit();
         session.close();
     }
+
+    @Test
+    public void TestAddUserList(){
+        SqlSession session = MybatisUtil.getSqlSession();
+        StudentMapper studentMapper = session.getMapper(StudentMapper.class);
+        List<User> list = new ArrayList<>();
+        for(int i=0; i<100; i++){
+            User user = new User();
+            String name = "王孝峰"+ i + "号";
+            String pwd = "12345"+i;
+            user.setName(name);
+            user.setPwd(pwd);
+            list.add(user);
+        }
+        studentMapper.addUserList(list);
+        session.commit();
+        session.close();
+    }
+
+
 }
